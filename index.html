@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión del sistema</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Módulos estadísticos">
+        <p class="sidebar-title">— Selecciona un módulo estadístico —</p>
+
+        <nav class="sidebar-nav">
+          <div class="nav-group">
+            <p class="nav-heading">1. Muestreo Probabilístico</p>
+            <ul class="nav-list">
+              <li><button type="button" class="nav-item" data-module="mas">Muestreo Aleatorio Simple</button></li>
+              <li><button type="button" class="nav-item" data-module="msist">Muestreo Sistemático</button></li>
+              <li><button type="button" class="nav-item" data-module="mestrat">Muestreo Estratificado</button></li>
+              <li><button type="button" class="nav-item" data-module="mcong">Muestreo por Conglomerados</button></li>
+            </ul>
+          </div>
+
+          <div class="nav-group">
+            <p class="nav-heading">2. Tipos de Variables</p>
+            <ul class="nav-list">
+              <li><button type="button" class="nav-item" data-module="vdisc">Variables Discretas</button></li>
+              <li><button type="button" class="nav-item" data-module="vcont">Variables Continuas</button></li>
+            </ul>
+          </div>
+
+          <div class="nav-group">
+            <p class="nav-heading">3. Medidas de Tendencia Central</p>
+            <ul class="nav-list">
+              <li><button type="button" class="nav-item" data-module="tmedia">Media (Promedio)</button></li>
+              <li><button type="button" class="nav-item" data-module="tmediana">Mediana</button></li>
+              <li><button type="button" class="nav-item" data-module="tmoda">Moda</button></li>
+            </ul>
+          </div>
+
+          <div class="nav-group">
+            <p class="nav-heading">4. Medidas de Dispersión</p>
+            <ul class="nav-list">
+              <li><button type="button" class="nav-item" data-module="drango">Rango</button></li>
+              <li><button type="button" class="nav-item" data-module="dvar">Varianza</button></li>
+              <li><button type="button" class="nav-item" data-module="dde">Desviación Estándar</button></li>
+              <li><button type="button" class="nav-item" data-module="dcv">Coeficiente de Variación</button></li>
+            </ul>
+          </div>
+
+          <div class="nav-group">
+            <p class="nav-heading">5. Medias Especiales</p>
+            <ul class="nav-list">
+              <li><button type="button" class="nav-item" data-module="emma3">Media Móvil (orden 3)</button></li>
+              <li><button type="button" class="nav-item" data-module="emma4">Media Móvil (orden 4)</button></li>
+              <li><button type="button" class="nav-item" data-module="emg">Media Geométrica</button></li>
+              <li><button type="button" class="nav-item" data-module="emh">Media Armónica</button></li>
+            </ul>
+          </div>
+
+          <div class="nav-group">
+            <p class="nav-heading">6. Medidas de Posición</p>
+            <ul class="nav-list">
+              <li><button type="button" class="nav-item" data-module="cuart">Cuartiles</button></li>
+              <li><button type="button" class="nav-item" data-module="decil">Deciles</button></li>
+              <li><button type="button" class="nav-item" data-module="perc">Percentiles</button></li>
+            </ul>
+          </div>
+
+          <div class="nav-group">
+            <p class="nav-heading">7. Distribución de Frecuencias</p>
+            <ul class="nav-list">
+              <li><button type="button" class="nav-item" data-module="dfreq">Distribución de Frecuencias</button></li>
+            </ul>
+          </div>
+
+          <div class="nav-group">
+            <p class="nav-heading">8. Medidas de Forma</p>
+            <ul class="nav-list">
+              <li><button type="button" class="nav-item" data-module="curt">Curtosis</button></li>
+              <li><button type="button" class="nav-item" data-module="asim">Asimetría</button></li>
+            </ul>
+          </div>
+        </nav>
+      </aside>
+
+      <div class="main-area">
+    <header class="container">
+      <h1>Gestión del sistema</h1>
+      <p class="muted">
+        Ingresá un <strong>documento</strong> para buscar la <strong>población</strong> y, si
+        hay datos numéricos, calcular la <strong>media</strong>.
+      </p>
+    </header>
+
+    <main class="container">
+      <section class="card">
+        <h2>Consulta</h2>
+
+        <form id="lookupForm" class="form">
+          <label class="field">
+            <span>Documento</span>
+            <input
+              id="documentInput"
+              name="document"
+              inputmode="numeric"
+              autocomplete="off"
+              placeholder="Ej: 40123456"
+            />
+          </label>
+
+          <input id="excelFile" type="file" accept=".xlsx,.xls,.csv" hidden />
+
+          <div class="actions">
+            <button id="loadExcelBtn" type="button" class="secondary">Cargar Excel</button>
+          </div>
+        </form>
+
+        <div id="message" class="message" aria-live="polite"></div>
+      </section>
+
+      <section class="card module-detail-card">
+        <h2 id="moduleDetailTitle">Módulo</h2>
+        <div id="moduleDetailBody" class="module-detail-body muted"></div>
+
+        <div class="steps-panel">
+          <h3 class="steps-heading">Paso a paso</h3>
+          <ol id="stepByStepList" class="steps-list" aria-label="Pasos para realizar el ejercicio"></ol>
+          <p id="stepsHint" class="steps-hint muted hidden" aria-live="polite"></p>
+          <div id="pedagogicalWrap" class="pedagogical-wrap hidden" aria-live="polite">
+            <h4 class="pedagogical-heading">Con tus números (paso a paso)</h4>
+            <ol id="pedagogicalStepsList" class="steps-list pedagogical-list"></ol>
+          </div>
+        </div>
+
+        <div id="samplingControls" class="sampling-controls hidden">
+          <div class="config-grid">
+            <label class="field">
+              <span>Columna: valores (población)</span>
+              <select id="samplingValueCol"></select>
+            </label>
+            <label class="field hidden" id="stratumField">
+              <span>Columna: estrato</span>
+              <select id="samplingStratumCol"></select>
+            </label>
+            <label class="field hidden" id="clusterField">
+              <span>Columna: conglomerado</span>
+              <select id="samplingClusterCol"></select>
+            </label>
+            <label class="field">
+              <span>Tamaño de muestra (n) o nº de conglomerados (m)</span>
+              <input id="samplingN" inputmode="numeric" placeholder="Ej: 10" />
+            </label>
+          </div>
+          <button type="button" id="runSamplingBtn" class="secondary">Ejecutar muestreo</button>
+          <div id="samplingPretty" class="sampling-pretty hidden" aria-live="polite"></div>
+          <details class="sampling-json">
+            <summary>Ver JSON técnico</summary>
+          <pre class="code sampling-out" id="samplingOutput">—</pre>
+          </details>
+        </div>
+      </section>
+
+      <section class="card" id="resultDataCard">
+          <h2>Resultado</h2>
+          <div class="result-config">
+            <div class="config-grid">
+              <label class="field">
+                <span>Columna: Documento</span>
+                <select id="docColSelect"></select>
+              </label>
+
+              <label class="field">
+                <span>Columna: Población</span>
+                <select id="popColSelect"></select>
+              </label>
+
+              <label class="field">
+                <span>Columnas: Datos (para media/mediana/moda)</span>
+                <select id="dataColsSelect" multiple></select>
+                <p id="dataColsNeedNote" class="data-cols-need hidden" role="status" aria-live="polite"></p>
+              </label>
+
+              <label class="field">
+                <span>Fila (1 = primera fila de datos)</span>
+                <div class="row-actions">
+                  <input id="rowIndexInput" inputmode="numeric" placeholder="Ej: 1" />
+                  <button id="useRowBtn" type="button" class="secondary">Usar fila</button>
+                </div>
+              </label>
+            </div>
+            <p class="muted">
+              Podés elegir una fila haciendo <strong>click</strong> en la tabla de abajo o usando el campo
+              “Fila”. El botón <strong>Buscar</strong> también busca por documento usando la columna elegida.
+            </p>
+          </div>
+
+          <dl class="kv" id="resultKv" data-module="tmedia">
+            <div class="kv-row kv-always">
+              <dt>Documento</dt>
+              <dd id="outDocument" class="mono">—</dd>
+            </div>
+            <div class="kv-row kv-always">
+              <dt>Población</dt>
+              <dd id="outPopulation">—</dd>
+            </div>
+            <div class="kv-row kv-always">
+              <dt>Datos</dt>
+              <dd id="outData">—</dd>
+            </div>
+            <div class="kv-row stat-tmedia">
+              <dt>Media</dt>
+              <dd id="outMean">—</dd>
+            </div>
+            <div class="kv-row stat-tmediana">
+              <dt>Mediana</dt>
+              <dd id="outMedian">—</dd>
+            </div>
+            <div class="kv-row stat-tmoda">
+              <dt>Moda</dt>
+              <dd id="outMode">—</dd>
+            </div>
+            <div class="kv-row stat-drango">
+              <dt>Rango</dt>
+              <dd id="outRange">—</dd>
+            </div>
+            <div class="kv-row stat-dvar">
+              <dt>Varianza (muestral)</dt>
+              <dd id="outVariance">—</dd>
+            </div>
+            <div class="kv-row stat-dde">
+              <dt>Desviación estándar (muestral)</dt>
+              <dd id="outStdev">—</dd>
+            </div>
+            <div class="kv-row stat-dcv">
+              <dt>Coef. de variación (%)</dt>
+              <dd id="outCV">—</dd>
+            </div>
+            <div class="kv-row stat-vdisc stat-vcont kv-full">
+              <dt>Clasificación</dt>
+              <dd id="outVarType">—</dd>
+            </div>
+            <div class="kv-row stat-emma3 kv-full">
+              <dt>Media móvil (orden 3)</dt>
+              <dd id="outMovAvg3" class="mono wrap">—</dd>
+            </div>
+            <div class="kv-row stat-emma4 kv-full">
+              <dt>Media móvil (orden 4)</dt>
+              <dd id="outMovAvg4" class="mono wrap">—</dd>
+            </div>
+            <div class="kv-row stat-emg">
+              <dt>Media geométrica</dt>
+              <dd id="outGeomMean">—</dd>
+            </div>
+            <div class="kv-row stat-emh">
+              <dt>Media armónica</dt>
+              <dd id="outHarmMean">—</dd>
+            </div>
+            <div class="kv-row stat-cuart kv-full">
+              <dt>Cuartiles (Q1, Q2, Q3)</dt>
+              <dd id="outQuartiles" class="mono wrap">—</dd>
+            </div>
+            <div class="kv-row stat-decil kv-full">
+              <dt>Deciles (D1–D9)</dt>
+              <dd id="outDeciles" class="mono wrap">—</dd>
+            </div>
+            <div class="kv-row stat-perc kv-full">
+              <dt>Percentiles (P5, P10, …, P95)</dt>
+              <dd id="outPercentiles" class="mono wrap">—</dd>
+            </div>
+            <div class="kv-row stat-dfreq kv-full">
+              <dt>Frecuencias (valor → absoluta)</dt>
+              <dd id="outFreqDist" class="mono wrap">—</dd>
+            </div>
+            <div class="kv-row stat-curt">
+              <dt>Curtosis (exceso muestral)</dt>
+              <dd id="outKurtosis">—</dd>
+            </div>
+            <div class="kv-row stat-asim">
+              <dt>Asimetría (sesgo muestral)</dt>
+              <dd id="outSkewness">—</dd>
+            </div>
+          </dl>
+      </section>
+
+      <section class="card viz-card" id="vizCard">
+        <h2>Visualización estadística</h2>
+        <p class="muted">
+          Se construye automáticamente con los datos numéricos de la fila seleccionada.
+        </p>
+
+        <div class="viz-grid">
+          <div class="viz-block">
+            <h3>Gráfico de frecuencias</h3>
+            <canvas id="freqChartCanvas" width="800" height="300" aria-label="Gráfico de frecuencias"></canvas>
+          </div>
+          <div class="viz-block">
+            <h3>Gráfico circular (frecuencia relativa)</h3>
+            <canvas id="pieChartCanvas" width="800" height="300" aria-label="Gráfico circular de frecuencias"></canvas>
+          </div>
+          <div class="viz-block">
+            <h3>Polígono de frecuencia</h3>
+            <canvas id="polyChartCanvas" width="800" height="300" aria-label="Polígono de frecuencia"></canvas>
+          </div>
+          <div class="viz-block">
+            <h3>Ojiva (frecuencia acumulada)</h3>
+            <canvas id="cumChartCanvas" width="800" height="300" aria-label="Gráfico acumulado"></canvas>
+          </div>
+          <div class="viz-block">
+            <h3>Histograma (intervalos)</h3>
+            <canvas id="histChartCanvas" width="800" height="300" aria-label="Histograma"></canvas>
+          </div>
+        </div>
+
+        <div class="freq-table-wrap">
+          <h3>Tabla de distribución de frecuencias</h3>
+          <p id="freqTableSummary" class="muted">Sin datos.</p>
+          <div class="table-wrap">
+            <table class="table" id="freqTable"></table>
+          </div>
+        </div>
+      </section>
+
+      <section class="card excel-card">
+        <h2>Excel (todas las columnas y datos)</h2>
+        <p id="outExcelMeta" class="muted">Sin Excel cargado.</p>
+        <div class="table-wrap">
+          <table class="table" id="outExcelTable"></table>
+        </div>
+      </section>
+
+      <section class="card export-card">
+        <h2>Exportar</h2>
+        <p class="muted">
+          Generá un archivo <strong>.xlsx</strong> con: resumen del ejercicio, <strong>paso a paso</strong> del tema
+          elegido, datos y columnas usadas, <strong>todos los resultados</strong> que calcula la app (aunque en
+          pantalla solo veas uno según el menú) y un <strong>texto explicado</strong> para estudiar o enseñar. Incluye
+          además una hoja de referencia con los pasos de <strong>todos</strong> los módulos del menú.
+        </p>
+        <div class="actions">
+          <button type="button" id="exportExcelBtn">Exportar a Excel</button>
+        </div>
+      </section>
+    </main>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
