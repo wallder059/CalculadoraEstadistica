@@ -423,6 +423,195 @@ button.secondary {
   display: none !important;
 }
 
+.unit-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.unit-tab {
+  all: unset;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.unit-tab:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.unit-tab.is-active {
+  background: linear-gradient(180deg, rgba(124, 58, 237, 0.95), rgba(124, 58, 237, 0.75));
+  color: #fff;
+  border-color: rgba(124, 58, 237, 0.5);
+}
+
+.u3-card {
+  margin-top: 16px;
+}
+
+.u3-lib-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.u3-library-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.u3-book-card {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(236, 72, 153, 0.35);
+  background: rgba(236, 72, 153, 0.08);
+  cursor: pointer;
+}
+
+.u3-book-card:hover {
+  background: rgba(236, 72, 153, 0.14);
+}
+
+.u3-book-date {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.u3-book-card h4 {
+  margin: 6px 0;
+  font-size: 0.95rem;
+}
+
+.u3-formula {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  margin: 10px 0;
+}
+
+.u3-result-highlight {
+  margin: 12px 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.35);
+}
+
+.u3-markov {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px dashed rgba(124, 58, 237, 0.4);
+  background: rgba(124, 58, 237, 0.08);
+}
+
+.u3-parallel-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.u3-par-active {
+  border-color: rgba(236, 72, 153, 0.6) !important;
+  background: rgba(236, 72, 153, 0.2) !important;
+}
+
+.u3-parallel-table td {
+  white-space: normal;
+  vertical-align: top;
+}
+
+.u3-par-book-cell {
+  min-width: 140px;
+}
+
+.u3-frag-label {
+  margin: 0 0 4px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.u3-frag-snippet {
+  margin: 0 0 8px;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.u3-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.u3-modal.hidden {
+  display: none !important;
+}
+
+.u3-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+.u3-modal-panel {
+  position: relative;
+  z-index: 1;
+  width: min(1100px, 100%);
+  max-height: 90vh;
+  overflow: auto;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #1a2537;
+  box-shadow: var(--shadow);
+}
+
+.u3-modal-panel-sm {
+  width: min(640px, 100%);
+}
+
+.u3-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.u3-fragment {
+  margin: 12px 0;
+  padding: 12px 14px;
+  border-left: 4px solid #ec4899;
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
 #resultKv[data-module="mas"] .kv-row:not(.kv-always),
 #resultKv[data-module="msist"] .kv-row:not(.kv-always),
 #resultKv[data-module="mestrat"] .kv-row:not(.kv-always),
